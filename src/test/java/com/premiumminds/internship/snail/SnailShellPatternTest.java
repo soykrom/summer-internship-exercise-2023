@@ -24,6 +24,9 @@ public class SnailShellPatternTest {
   public SnailShellPatternTest() {
   }
 
+  /**
+   * Simple 3x3 Test
+   */
   @Test
   public void ScreenLockingPatternTestFirst3Length2Test()
       throws InterruptedException, ExecutionException, TimeoutException {
@@ -34,6 +37,9 @@ public class SnailShellPatternTest {
     assertArrayEquals(result, expected);
   }
 
+  /**
+   * Empty Matrix Edge Case
+   */
   @Test
   public void EmptyMatrixEdgeCaseTest()
           throws InterruptedException, ExecutionException, TimeoutException {
@@ -44,18 +50,40 @@ public class SnailShellPatternTest {
     assertArrayEquals(result, expected);
   }
 
+  /**
+   * Single Entry Edge Case
+   */
   @Test
   public void SingleEntryMatrixEdgeCaseTest()
           throws InterruptedException, ExecutionException, TimeoutException {
-    int[][] matrix = { {1} };
+    int[][] matrix = { { 1 } };
     Future<int[]> count = new SnailShellPattern().getSnailShell(matrix);
     int[] result = count.get(10, TimeUnit.SECONDS);
     int[] expected = { 1 };
     assertArrayEquals(result, expected);
   }
 
+  /**
+   * 4x4 matrix test for regular matrix
+   */
   @Test
-  public void FullCoverRegularMatrixTest()
+  public void FullCoverEvenMatrixTest()
+          throws InterruptedException, ExecutionException, TimeoutException {
+    int[][] matrix = { { 1, 2, 3, 4 },
+            { 5, 6, 7, 8 },
+            { 9, 10, 11, 12 },
+            { 13, 14, 15, 16 } };
+    Future<int[]> count = new SnailShellPattern().getSnailShell(matrix);
+    int[] result = count.get(10, TimeUnit.SECONDS);
+    int[] expected = { 1, 2, 3, 4, 8, 12, 16, 15, 14, 13, 9, 5, 6, 7, 11, 10 };
+    assertArrayEquals(result, expected);
+  }
+
+  /**
+   * 5x5 matrix test for regular matrix
+   */
+  @Test
+  public void FullCoverOddMatrixTest()
           throws InterruptedException, ExecutionException, TimeoutException {
     int[][] matrix = { { 1,  2,  3,  4,  5 },
             { 16, 17, 18, 19, 6 },
@@ -68,6 +96,9 @@ public class SnailShellPatternTest {
     assertArrayEquals(result, expected);
   }
 
+  /**
+   * Large Matrix test for efficiency
+   */
   @Test
   public void LargeMatrixSolutionTimeTest() {
     int size = 10000;
